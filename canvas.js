@@ -6,15 +6,28 @@ var toggle = document.getElementById("toggle");
 
 var shape = "circle";
 
+var firstCircle = 0;
+
 var draw = function(e){
     if (shape == "circle"){
-	context.beginPath();
-	context.arc(e.clientX, e.clientY, 20, 0, 2*Math.PI);
-	context.fill();
+	if (firstCircle == 0){
+	    context.beginPath();
+	    context.arc(e.offsetX, e.offsetY, 20, 0, 2*Math.PI);
+	    context.fill();
+	    firstCircle = 1;
+	}
+	else{
+	    context.lineTo(e.offsetX, e.offsetY);
+	    context.stroke();
+	    context.beginPath();
+	    context.arc(e.offsetX, e.offsetY, 20, 0, 2*Math.PI);
+	    context.fill();
+	    context.stroke();
+	}	
     }
     else{
 	context.beginPath();
-	context.rect(e.clientX, e.clientY, 35, 35);
+	context.rect(e.offsetX, e.offsetY, 35, 35);
 	context.fill();
     }
 }
